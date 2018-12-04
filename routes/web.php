@@ -29,3 +29,9 @@ Route::get('/contact', function () {
 Route::get('/ex', function () {
     return view('example');
 });
+Route::get('/email', function () {
+    return view('email');
+});
+Route::get('/login', function () {
+    return view('login');
+});
