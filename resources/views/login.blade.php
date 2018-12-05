@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Contact V14</title>
+	<title>Nyervisga? | Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -28,54 +28,36 @@
 <!--===============================================================================================-->
 </head>
 <body>
-
-
 	<div class="container-contact100">
 		<div class="wrap-contact100">
-			<form class="contact100-form validate-form">
-				<span class="contact100-form-title">
-					Contact Us
+			<form class="contact100-form validate-form" method="POST" action="/login">
+				<span class="contact100-form-title image-title">
+					<img src="logo/logonyervisga.png" alt="" width="200" height="200">
 				</span>
+				<span class="contact100-form-title">
+					LOGIN
+				</span>
+				
 
-				<label class="label-input100" for="first-name">Your Name *</label>
-				<div class="wrap-input100 rs1 validate-input">
-					<input id="first-name" class="input100" type="text" name="first-name" placeholder="First name">
-					<span class="focus-input100"></span>
-				</div>
-				<div class="wrap-input100 rs1 validate-input">
-					<input class="input100" type="text" name="last-name" placeholder="Last name">
-					<span class="focus-input100"></span>
-				</div>
-
-				<label class="label-input100" for="email">Email Address *</label>
+				<label class="label-input100" for="username">Username</label>
 				<div class="wrap-input100 validate-input">
-					<input id="email" class="input100" type="text" name="email" placeholder="Eg. example@email.com">
-					
+					<input id="username" class="input100" type="text" name="username" placeholder="Username">
+					{{-- <span class="focus-input100"></span> --}}
 				</div>
 
-				<label class="label-input100" for="phone">Phone Number</label>
-				<div class="wrap-input100">
-					<input id="phone" class="input100" type="text" name="phone" placeholder="Eg. +1 800 000000">
-					<span class="focus-input100"></span>
-				</div>
-				<div class="wrap-input100">
-					<input id="datepicker" class="input100" type="text" name="phone" placeholder="Tanggal Lahir">
-					<span class="focus-input100"></span>
-				</div>
-				<label class="label-input100" for="message">Message *</label>
+				<label class="label-input100" for="password">Password</label>
 				<div class="wrap-input100 validate-input">
-					<textarea id="message" class="input100" name="message" placeholder="Please enter your comments..."></textarea>
-					
+					<input id="password" class="input100" type="password" name="password" placeholder="Password">		
 				</div>
-
 				<div class="container-contact100-form-btn">
 					<button class="contact100-form-btn">
 						<span>
-							Submit
+							Login
 							<i class="zmdi zmdi-arrow-right m-l-8"></i>
 						</span>
 					</button>
 				</div>
+				@csrf
 			</form>
 		</div>
 	</div>
@@ -96,20 +78,59 @@
 <!--===============================================================================================-->
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
+	<script src="js/sweetalert.min.js"></script>
 	<script src="js/main.js"></script>
+
+	
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-23581568-13');
-  $('#datepicker').Zebra_DatePicker({
-	  format: 'd-m-Y'
-  });
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-23581568-13');
 </script>
+@if(Session::has('login')){
+	@if(Session::get('login')=='1'){
+		<script>
+			swal({
+				title : "Anda Tlah Terdaftar!",
+				text : "Silahkan login dengan username dan password yang anda gunakan, ya!",
+				icon : "success",
+				button : "Ok!",
+			});	
+		</script>
+	}
+	@endif
+}
+@endif
+@if(Session::has('alert')){
+	@if(Session::get('alert') == 1){
+		<script>
+			swal({
+				title : "Password Salah!",
+				text : "Password yang anda masukkan salah :(",
+				icon : "error",
+				button : "Ok!",
+			});	
+			var username = '{{ Session::get("username") }}';
+			$('#username').val(username);
+		</script>
+	}@else{
+		<script>
+			swal({
+				title : "Akun Anda Tidak Terdaftar!",
+				text : "Mungkin Anda Keliru hehe",
+				icon : "error",
+				button : "Ok!",
+			});	
+		</script>
+	}
+	@endif
+}
+@endif
 </body>
 </html>
+

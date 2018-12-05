@@ -14,24 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+// ================================================================================
 
-Route::get('/home', function () {
-    return view('index');
-});
-
-Route::get('/about', function () {
-    return view('about');
-});
-Route::get('/contact', function () {
-    return view('contact');
-});
-
-Route::get('/ex', function () {
-    return view('example');
-});
-Route::get('/email', function () {
-    return view('email');
-});
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login','AuthController@index');
+Route::post('/login','AuthController@cek_data');
+Route::get('/register','AuthController@index2');
+Route::post('/register','AuthController@daftar');

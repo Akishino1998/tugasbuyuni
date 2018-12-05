@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Contact V14</title>
+	<title>Nyervisga? | Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -21,62 +21,49 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="css/zebra_datepicker.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 </head>
 <body>
-
-
 	<div class="container-contact100">
 		<div class="wrap-contact100">
-			<form class="contact100-form validate-form">
+			<form class="contact100-form validate-form" method="POST" action="/register" onsubmit=" return Password()">
+				<span class="contact100-form-title image-title">
+					<img src="logo/logonyervisga.png" alt="" width="200" height="200">
+				</span>
 				<span class="contact100-form-title">
-					Contact Us
+					LOGIN
 				</span>
 
-				<label class="label-input100" for="first-name">Your Name *</label>
-				<div class="wrap-input100 rs1 validate-input">
-					<input id="first-name" class="input100" type="text" name="first-name" placeholder="First name">
-					<span class="focus-input100"></span>
-				</div>
-				<div class="wrap-input100 rs1 validate-input">
-					<input class="input100" type="text" name="last-name" placeholder="Last name">
-					<span class="focus-input100"></span>
-				</div>
-
-				<label class="label-input100" for="email">Email Address *</label>
+				<label class="label-input100" for="username">Username</label>
 				<div class="wrap-input100 validate-input">
-					<input id="email" class="input100" type="text" name="email" placeholder="Eg. example@email.com">
-					
+					<input id="username" class="input100" type="text" name="username" placeholder="Username">
+					{{-- <span class="focus-input100"></span> --}}
 				</div>
 
-				<label class="label-input100" for="phone">Phone Number</label>
-				<div class="wrap-input100">
-					<input id="phone" class="input100" type="text" name="phone" placeholder="Eg. +1 800 000000">
-					<span class="focus-input100"></span>
-				</div>
-			<div class="wrap-input100">
-<input id="phone" class="input100" type="text" name="date" value="1-1-1950" placeholder=" Eg. +1 800 000000">
-				<span class="focus-input100"></span>
-			</div>
-
-				<label class="label-input100" for="message">Message *</label>
+				<label class="label-input100" for="password">Password</label>
 				<div class="wrap-input100 validate-input">
-					<textarea id="message" class="input100" name="message" placeholder="Please enter your comments..."></textarea>
-					
+					<input id="password" class="input100" type="password" name="password" placeholder="Password">		
 				</div>
+				<label class="label-input100" for="password">Retype Password</label>
+				<div class="label-alert">
 
+				</div>
+				<div class="wrap-input100 validate-input">
+					<input id="repassword" class="input100" type="password" name="repassword" placeholder="Re-Type Password">		
+				</div>
 				<div class="container-contact100-form-btn">
 					<button class="contact100-form-btn">
 						<span>
-							Submit
+							Register
 							<i class="zmdi zmdi-arrow-right m-l-8"></i>
 						</span>
 					</button>
 				</div>
+				@csrf
 			</form>
 		</div>
 	</div>
@@ -93,31 +80,42 @@
 <!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="js/zebra_datepicker.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
+	<script src="js/sweetalert.min.js"></script>
 	<script src="js/main.js"></script>
+
+	
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
 
-  gtag('config', 'UA-23581568-13');
+	gtag('config', 'UA-23581568-13');
+</script>
 
-	$(function () {
-		$('input[name="date"]').daterangepicker({
-			singleDatePicker: true,
-			showDropdowns: true,
-			"startDate": "11/28/1950",
-			"endDate": "12/04/2025"
-		});
+<script>
+	function Password(){
+		$password = $('#password').val();
+		$repassword = $('#repassword').val();
+		if($password != $repassword){
+			$('.label-alert').empty();
+			$('.label-alert').append('<div class="alert alert-warning">Re-Type Password tidak sama!</div>')
+			return false;
+		}else{
+			return true;
+		}
+	}
+	$('#password').click(function(){
+		$('.label-alert').empty();
 	});
 </script>
 </body>
 </html>
+
