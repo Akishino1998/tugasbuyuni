@@ -18,13 +18,16 @@ class AuthController extends Controller
         $username = $request->username;
         $password = $request->password;
         // dd($password);
-        $data = User::all()->where('username',$username);
-        // dd($data[0]);
-        if(count($data)){
-            if($password == $data[0]->password){
-                Session::put('id_user', $data[0]->id_user);
+        $data = UserAccount::all()->where('username',$username)->first();
+        $data2 = UserAccount::all()->where('username',$username)->COUNT('username');
+        
+        if($data2 >= 1){
+            if($password == $data->password){
+                $data3 = User::all()->where('id_user',$data->id_user)->first();
+                Session::put('id_user', $data->id_user);
+                Session::put('nama', $data3->nama_depan);
                 // return redirect('home');
-                return 'anda login';
+                return redirect('home')->with('login','success');
             }else{
                 return redirect('login')->with('alert','1')->with('username',$username);
             }
@@ -37,19 +40,44 @@ class AuthController extends Controller
         return view('register');   
     }
     public function daftar(Request $request){
-        $id_user = User::all()->MAX('id_user')+1;
-        DB::table('tb_user')->insert([
-            'id_user' => $id_user,
-        ]);
+        $cek = UserAccount::all()->where('username',$request->username);
+        // dd($cek);
+        if(count($cek)==0){
+            $id_user = User::all()->MAX('id_user')+1;
+            DB::table('tb_user')->insert([
+                'id_user' => $id_user,
+                'nama_depan' => $request->username,
+            ]);
 
-        DB::table('tb_user_account')->insert([
-            'username' => $request->username,
-            'password' => $request->password,
-            'id_user' => $id_user,
-        ]);     
-        return redirect('login')->with('login','1');
+            DB::table('tb_user_account')->insert([
+                'username' => $request->username,
+                'password' => $request->password,
+                'id_user' => $id_user,
+            ]);     
+            return redirect('login')->with('login','1');
+        }else{
+            return redirect('register')->with('register','failed');
+        }
+    }
+    public function bio(){
+        if(Session::has('id_user')){
         
-
+            $id_user = Session::get('id_user');
+            $data = User::all()->where('id_user',$id_user)->first();
+            // dd($data->id_user);
+            return view('biodata',compact('data'));
+        }else{
+            // dd();
+            return redirect('login')->with('login','failed');
+        }
+        
+    }
+    public function update_bio(Request $request){
+        $id_user = Session::get('id_user');
+        DB::table('tb_user')
+            ->where('id_user', $id_user)
+            ->update(['nama_depan' => $request->nama_depan]);
+        return $id_user;
     }
 
 }

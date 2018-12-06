@@ -29,42 +29,52 @@
 </head>
 <body>
 	<div class="container-contact100">
-		<div class="wrap-contact100">
-			<form class="contact100-form validate-form" method="POST" action="/register" onsubmit=" return Password()">
-				<span class="contact100-form-title image-title">
-					<img src="logo/logonyervisga.png" alt="" width="200" height="200">
-				</span>
-				<span class="contact100-form-title">
-					LOGIN
-				</span>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+					<div class="wrap-contact100">
+						<form class="contact100-form validate-form" method="POST" action="/register" onsubmit=" return Password()">
+							<span class="contact100-form-title image-title">
+								<a href="/home"><img src="logo/logonyervisga.png" alt="" width="200" height="200"></a>
+							</span>
+							<span class="contact100-form-title">
+								REGISTER
+							</span>
 
-				<label class="label-input100" for="username">Username</label>
-				<div class="wrap-input100 validate-input">
-					<input id="username" class="input100" type="text" name="username" placeholder="Username">
-					{{-- <span class="focus-input100"></span> --}}
-				</div>
+							<label class="label-input100" for="username">Username</label>
+							<div class="wrap-input100 validate-input">
+								<input id="username" class="input100" type="text" name="username" placeholder="Username">
+								{{-- <span class="focus-input100"></span> --}}
+							</div>
 
-				<label class="label-input100" for="password">Password</label>
-				<div class="wrap-input100 validate-input">
-					<input id="password" class="input100" type="password" name="password" placeholder="Password">		
-				</div>
-				<label class="label-input100" for="password">Retype Password</label>
-				<div class="label-alert">
+							<label class="label-input100" for="password">Password</label>
+							<div class="wrap-input100 validate-input">
+								<input id="password" class="input100" type="password" name="password" placeholder="Password">		
+							</div>
+							<label class="label-input100" for="password">Retype Password</label>
+							<div class="label-alert">
 
+							</div>
+							<div class="wrap-input100 validate-input">
+								<input id="repassword" class="input100" type="password" name="repassword" placeholder="Re-Type Password">		
+							</div>
+							<div class="container-contact100-form-btn">
+								<button class="contact100-form-btn">
+									<span>
+										Register
+										<i class="zmdi zmdi-arrow-right m-l-8"></i>
+									</span>
+								</button>
+							</div>
+							<div class="container-contact100-form-btn">
+								<a href="/login" class="help-button">Sudah Punya Akun?</a>
+							</div>
+							@csrf
+						</form>
+					</div>
 				</div>
-				<div class="wrap-input100 validate-input">
-					<input id="repassword" class="input100" type="password" name="repassword" placeholder="Re-Type Password">		
-				</div>
-				<div class="container-contact100-form-btn">
-					<button class="contact100-form-btn">
-						<span>
-							Register
-							<i class="zmdi zmdi-arrow-right m-l-8"></i>
-						</span>
-					</button>
-				</div>
-				@csrf
-			</form>
+			</div>			
 		</div>
 	</div>
 
@@ -116,6 +126,19 @@
 		$('.label-alert').empty();
 	});
 </script>
+@if(Session::has('register')){
+	{{-- <script>alert(12);</script> --}}
+	@if(Session::get('register')){
+		<script>
+			swal({
+				title : "Username Telah Terdaftar!",
+				text : "Username yang anda gunakan telah terdaftar :(",
+				icon : "error",
+				button : "Ok!",
+			});	
+		</script>
+	@endif
+@endif
 </body>
 </html>
 

@@ -27,7 +27,7 @@
             	<nav class="navbar navbar-expand-lg navbar-light">
 					<div class="container box_1620">
 						<!-- Brand and toggle get grouped for better mobile display -->
-						<a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+						<a class="navbar-brand logo_h" href="/home"><img src="logo/logonyervisga.png" alt="" width="80" height="70"></a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
@@ -55,21 +55,25 @@
 								</li> 
 								<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><a href="#" class="tickets_btn">Free Trial</a></li>
-							</ul>
+							@if ( Session::has('id_user') )
+								<ul class="nav navbar-nav navbar-right">
+									<li class="nav-item"><a href="#" class="tickets_btn">Hai, {{ Session::get('nama') }}</a></li>
+								</ul>
+							@else
+								<ul class="nav navbar-nav navbar-right">
+									<li class="nav-item"><a href="/register" class="tickets_btn">DAFTAR</a></li>
+								</ul>
+								<ul class="nav navbar-nav navbar-right">
+									<li class="nav-item"><a href="/login" class="tickets_btn">LOGIN</a></li>
+								</ul>
+							@endif
 						</div> 
 					</div>
             	</nav>
             </div>
         </header>
-        <section class="home_banner_area">
-            <div class="banner_inner">
-                <h4>About Me</h4>
-            </div>
-        </section>
 
-        @yield('contect')
+        @yield('content')
 
 
         <footer class="footer_area p_120">
@@ -144,6 +148,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <!--gmaps Js-->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
         <script src="js/gmaps.min.js"></script>
-        <script src="js/theme.js"></script>
+		<script src="js/theme.js"></script>
+		<script src="js/sweetalert.min.js"></script>
     </body>
 </html>
+@yield('jquery')

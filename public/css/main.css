@@ -160,11 +160,24 @@ iframe {
 }
 
 .wrap-contact100 {
-  width: 790px;
+  width: auto;
   background: #fff;
   border-radius: 2px;
   padding: 55px 95px 68px 95px;
 }
+.wrap-contact1000 {
+    width: auto;
+    background: #fff;
+    border-radius: 2px;
+    padding: 55px 0px 0px 0px;
+}
+.wrap-contact10000 {
+    width: auto;
+    background: #fff;
+    border-radius: 2px;
+    padding: 30px 0px 0px 0px;
+}
+
 
 
 /*==================================================================
@@ -208,6 +221,13 @@ iframe {
   border-radius: 2px;
   margin-bottom: 34px
 }
+.wrap-input1000 {
+    width: auto;
+    position: relative;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    /* margin-bottom: 34px */
+}
 
 .rs1.wrap-input100 {
   width: calc((100% - 40px) / 2);
@@ -221,8 +241,16 @@ iframe {
   line-height: 1.5;
   text-transform: uppercase;
   width: 100%;
-
   padding-bottom: 11px;
+}
+.label-input1000 {
+    font-family: Raleway-SemiBold;
+    font-size: 13px;
+    color: #555555;
+    line-height: 1.5;
+    text-transform: uppercase;
+    width: 49%;
+    padding-bottom: 11px;
 }
 
 .input100 {
@@ -235,13 +263,12 @@ iframe {
   line-height: 1.2;
   padding: 0 25px;
 }
-
 input.input100 {
   height: 55px;
 }
 
 textarea.input100 {
-  min-height: 162px;
+  min-height: 130px;
   padding-top: 19px;
   padding-bottom: 15px;
 }
@@ -293,6 +320,10 @@ textarea.input100 {
 
 /*------------------------------------------------------------------
 [ Button ]*/
+.help-button{
+  position: relative;
+  padding-top: 30px;
+}
 .container-contact100-form-btn {
   width: 100%;
   display: -webkit-box;
