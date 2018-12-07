@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Session;
 
 use Illuminate\Http\Request;
 
@@ -10,6 +11,13 @@ class HomeController extends Controller
         return view('index');
     }
     public function create_servis(){
-        return view('belum');
+        if(!Session::has('id_user')){
+            return view('servis');
+        }else{
+            // dd();
+            return redirect('login')->with('login','failed');
+        }
+        
+        
     }
 }

@@ -32,6 +32,9 @@
                 width: 100%;
                 bottom: 30px;
             }
+            .form-foto{
+                position: absolute;
+            }
     </style>
 <!--===============================================================================================-->
 </head>
@@ -52,10 +55,10 @@
                             Fotomu
                         </span>
                         <span class="contact100-form-title image-title">
-                            <a href="/home"><img src="logo/logonyervisga.png" alt="" width="200" height="200"></a>
+                            <a href="/home"><img src="{{ url('storage/'.$data->foto) }}" alt="" width="200" height="300"></a>
                         </span>
-                        <div class="row">
-                            <div class="col-12">
+                        <div class="row form-foto">
+                            <div class="col-12 ">
                                 <form action="/biodata-foto" method="post"  enctype="multipart/form-data">
                                     <input type='file' accept='image/png, image/jpeg, image/gif' name='foto' id="file"/>
                                     <button type="submit">Upload</button>
@@ -490,11 +493,3 @@
 </script>
 </body>
 </html>
-
-
-<script>
-                                        $('#file').change(function(){
-                                            var id = document.getElementById("file").value;
-                                            console.log(id);
-                                        });
-                                    </script>

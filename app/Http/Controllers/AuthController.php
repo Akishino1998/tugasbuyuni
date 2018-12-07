@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\UserAccount;
-use Flash;
+// use Flash;
 use File;
-use Intervention\Image\Facades\Image as Image;
-use Imagine;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+// use Imagine;
 class AuthController extends Controller
 {
     public function index(){
@@ -191,15 +192,26 @@ class AuthController extends Controller
             $fileName   = time() . '.' . $image->getClientOriginalExtension();
 
             $img = Image::make($image->getRealPath());
-            $img->resize(120, 120, function ($constraint) {
+            $img->resize(300, 400, function ($constraint) {
                 $constraint->aspectRatio();                 
             });
-
+            // dd($img);
             $img->stream(); // <-- Key point
 
             //dd();
-            Storage::disk('local')->put('images/photo-'.'/'.$fileName, $img, 'public');
-            return 'sukses';
+            Storage::disk('local')->put('public/'.$fileName, $img, 'public');
+            // $contents = Storage::get('file.jpg');
+            // $size = Storage::size($img);
+            // return Storage::download('foto/'.$fileName);
+
+            $id_user = Session::get('id_user');
+             DB::table('tb_user')
+            ->where('id_user', $id_user)
+            ->update([
+                'foto' => $fileName,
+            ]);
+            // return Storage::url($fileName);
+            return redirect('/biodata');
         }else{
             return 1;
         }
