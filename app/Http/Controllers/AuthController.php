@@ -31,6 +31,7 @@ class AuthController extends Controller
                 $data3 = User::all()->where('id_user',$data->id_user)->first();
                 Session::put('id_user', $data->id_user);
                 Session::put('nama', $data3->nama_depan);
+
                 // return redirect('home');
                 return redirect('home')->with('login','success');
             }else{

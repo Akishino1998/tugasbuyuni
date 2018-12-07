@@ -29,3 +29,4 @@ Route::post('/biodata-foto','AuthController@upload_foto');
 Route::get('/home','HomeController@index');
 
 Route::get('/servis','HomeController@create_servis');
+Route::post('/servis','HomeController@set_servis');
