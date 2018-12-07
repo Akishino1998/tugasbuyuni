@@ -54,6 +54,15 @@
                         <span class="contact100-form-title image-title">
                             <a href="/home"><img src="logo/logonyervisga.png" alt="" width="200" height="200"></a>
                         </span>
+                        <div class="row">
+                            <div class="col-12">
+                                <form action="/biodata-foto" method="post"  enctype="multipart/form-data">
+                                    <input type='file' accept='image/png, image/jpeg, image/gif' name='foto' id="file"/>
+                                    <button type="submit">Upload</button>
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
                         <hr>
                         {{-- <label class="label-input100" for="password">Ubah Password</label> --}}
                     </div>
@@ -90,16 +99,22 @@
                                 </div>
                                 <div class="col-6">
                                     <label class="label-input100" for="jenis_kelamin">Jenis Kelamin</label>
-                                    <div class="wrap-input100">
+                                    <div class="wrap-input100 jenkel">
                                         <input id="jenis_kelamin" class="input100" type="text" name="jenis_kelamin" placeholder="Jenis Kelamin" value="{{ $data->jenis_kelamin }}" disabled>		
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="">
+                                <div class="col-6">
                                     <label class="label-input100" for="no_hp">No. HP</label>
                                     <div class="wrap-input100">
-                                        <input id="no_hp" class="input100" type="password" name="no_hp" placeholder="No. HP" value="{{ $data->no_hp }}" disabled>		
+                                        <input id="no_hp" class="input100" type="text" name="no_hp" placeholder="No. HP" value="{{ $data->no_hp }}" disabled>		
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label class="label-input100" for="email">Email</label>
+                                    <div class="wrap-input100">
+                                        <input id="email" class="input100" type="email" name="email" placeholder="No. HP" value="{{ $data->email }}" disabled>		
                                     </div>
                                 </div>
                                 
@@ -122,13 +137,13 @@
                 <div class="col-3"></div>
                 <div class="col-7">
                     <div class="wrap-contact100">
-                        <div class="contact100-form" method="POST" action="/biodata">
+                        <form class="contact100-form form-alamat" method="POST" action="/biodata-alamat">
                             <span class="contact100-form-title">
                                 Alamatmu
                             </span>
                             <div id="mapBox"></div>
-                                <input type="text" name="latitude" id="latclicked"  ><br>
-		                            <input type="text" name="longtitude" id="longclicked"><br>
+                                <input type="text" name="latitude" id="latclicked" value="{{ $data->latitude }}" ><br>
+                                <input type="text" name="longtitude" id="longclicked" value="{{ $data->longtitude }}"><br>
                                 <label class="label-input100" for="alamat">Alamat Lengkap</label>
                                 <div class="wrap-input100 validate-input">
                                     <textarea id="alamat" class="input100" name="alamat" placeholder="Alamat Lengkap" disabled>{{ $data->alamat }}</textarea>
@@ -138,25 +153,25 @@
                                 <div class="col-3">
                                     <label class="label-input100" for="no_rumah">No. Rumah</label>
                                     <div class="wrap-input100">
-                                        <input id="no_rumah" class="input100" type="text" name="no_rumah" placeholder="No." {{ $data->no_rumah }}>		
+                                        <input id="no_rumah" class="input100" type="text" name="no_rumah" placeholder="No." value="{{ $data->no_rumah }}" disabled>		
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <label class="label-input100" for="rt">RT</label>
                                     <div class="wrap-input100">
-                                        <input id="rt" class="input100" type="text" name="rt" placeholder="RT" {{ $data->rt }}>		
+                                        <input id="rt" class="input100" type="text" name="rt" placeholder="RT" value="{{ $data->rt }}" disabled>		
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <label class="label-input100" for="rt">RW</label>
                                     <div class="wrap-input100">
-                                        <input id="rw" class="input100" type="text" name="rw" placeholder="RW" {{ $data->rw }}>		
+                                        <input id="rw" class="input100" type="text" name="rw" placeholder="RW" value="{{ $data->rw }}" disabled>		
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <label class="label-input100" for="kode_pos">Kode POS</label>
                                     <div class="wrap-input100">
-                                        <input id="kode_pos" class="input100" type="text" name="kode_pos" placeholder="Kode POS" {{ $data->nama_belakang }}>
+                                        <input id="kode_pos" class="input100" type="text" name="kode_pos" placeholder="Kode POS" value="{{ $data->kode_pos }}" disabled>
                                         {{-- <span class="focus-input100"></span> --}}
                                     </div>
                                 </div>
@@ -165,13 +180,13 @@
                                 <div class="col-6">
                                     <label class="label-input100" for="provinsi">Provinsi</label>
                                     <div class="wrap-input100">
-                                        <input id="provinsi" class="input100" type="text" name="provinsi" placeholder="Provinsi" {{ $data->provinsi }}>		
+                                        <input id="provinsi" class="input100" type="text" name="provinsi" placeholder="Provinsi" value="{{ $data->provinsi }}" disabled>		
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label class="label-input100" for="kabupaten">Kabupaten</label>
                                     <div class="wrap-input100">
-                                        <input id="kabupaten" class="input100" type="text" name="kabupaten" placeholder="Kabupaten" {{ $data->kabupaten }}>		
+                                        <input id="kabupaten" class="input100" type="text" name="kabupaten" placeholder="Kabupaten" value="{{ $data->kabupaten }}" disabled>		
                                     </div>
                                 </div>
                             </div>
@@ -179,24 +194,24 @@
                                 <div class="col-6">
                                     <label class="label-input100" for="kelurahan">Kelurahan</label>
                                     <div class="wrap-input100">
-                                        <input id="kelurahan" class="input100" type="text" name="kelurahan" placeholder="Kelurahan" {{ $data->kelurahan }}>		
+                                        <input id="kelurahan" class="input100" type="text" name="kelurahan" placeholder="Kelurahan" value="{{ $data->kelurahan }}" disabled>		
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label class="label-input100" for="kecamatan">Kecamatan</label>
                                     <div class="wrap-input100">
-                                        <input id="kecamatan" class="input100" type="text" name="kecamatan" placeholder="Kecamatan" {{ $data->kecamatan }}>		
+                                        <input id="kecamatan" class="input100" type="text" name="kecamatan" placeholder="Kecamatan" value="{{ $data->kecamatan }}" disabled>		
                                     </div>
                                 </div>
                                 
                             </div>
-                             <div class="container-contact100-form-btn">
-                                <button class="contact100-form-btn">
+                             <div class="container-contact100-form-btn btn-alamat">
+                                <div class="contact100-form-btn">
                                     <span>
-                                        Simpan
+                                        Ubah
                                         <i class="zmdi zmdi-arrow-right m-l-8"></i>
                                     </span>
-                                </button>
+                                </div>
                             </div>
                             @csrf
                         </div>
@@ -242,17 +257,21 @@
     var markers = [];
 
     function initMap() {
-        var haightAshbury = {lat: -0.489776, lng: 117.144242};
+        var latitude = $('#latclicked').val();
+        var longtitude = $('#longclicked').val();
+        var myLatLng = {lat:parseFloat(latitude), lng: parseFloat(longtitude)};
         map = new google.maps.Map(document.getElementById('mapBox'), {
             zoom: 15,
-            center: haightAshbury,
+            center: myLatLng,
             mapTypeId: 'roadmap'
         });
-        
+        addMarkerFirst();
+        setMapOnAll(map)
 
         // This event listener will call addMarker() when the map is clicked.
         map.addListener('click', function(event) {
             addMarker(event.latLng);
+            // console.log(event.latLng);
             document.getElementById('latclicked').value = event.latLng.lat();
             document.getElementById('longclicked').value =  event.latLng.lng();
 
@@ -277,7 +296,24 @@
             position: location,
             map: map  
         });
+        markers = [];
         markers.push(marker);
+        
+    }
+    function addMarkerFirst() {
+        setMapOnAll(null);
+        var latitude = $('#latclicked').val();
+        var longtitude = $('#longclicked').val();
+        if(latitude != '' ||  longtitude != ''){
+            var myLatLng = {lat:parseFloat(latitude), lng: parseFloat(longtitude)};
+            // console.log(myLatLng);
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map  
+            });
+            markers = [];
+            markers.push(marker);
+        }
     }
 
     // Sets the map on all markers in the array.
@@ -293,18 +329,55 @@
             $('.btn-update-tentang').append('<button class="contact100-form-btn btn-simpan"><span>Simpan<i class="zmdi zmdi-arrow-right m-l-8"></i></span></button>');
             $('#nama_depan').prop('disabled',false);
             $('#nama_belakang').prop('disabled',false);
+
+            var tgl = $('#tanggal_lahir').val();
+            $('#tanggal_lahir').prop('disabled',false);
+            $('#tanggal_lahir').prop('type','date');
+            $('#tanggal_lahir').val(tgl);
+            $('#no_hp').prop('disabled',false);
+            // $('#jenis_kelamin').prop('disabled',false);
+            $('#email').prop('disabled',false);
+
+            var jenkel = $('#jenis_kelamin').val();
+            $('.jenkel').empty();
+            if(jenkel == 'P'){
+                $('.jenkel').append('<select class="form-control input100 jen-kel" name="jenis_kelamin"><option value="L">Laki Laki</option><option value="P" selected>Perempuan</option></select>');
+            }else if(jenkel == 'L'){
+                $('.jenkel').append('<select class="form-control input100 jen-kel" name="jenis_kelamin"><option value="L" selected>Laki Laki</option><option value="P" >Perempuan</option></select>');
+            }else{
+                $('.jenkel').append('<select class="form-control input100 jen-kel" name="jenis_kelamin"><option value="L" >Laki Laki</option><option value="P" >Perempuan</option></select>');
+            }
             stat = 2;
         }
-        
     });
+
+    var stat2 = 1;
+    $('.btn-alamat').click(function(){
+        if(stat2 == 1){
+            $('.btn-alamat').empty();
+            $('.btn-alamat').append('<button class="contact100-form-btn"><span>Simpan Alamat<i class="zmdi zmdi-arrow-right m-l-8"></i></span></button>');
+            $('#alamat').prop('disabled',false);
+            $('#no_rumah').prop('disabled',false);
+            $('#rt').prop('disabled',false);
+            $('#rw').prop('disabled',false);
+            $('#provinsi').prop('disabled',false);
+            $('#kabupaten').prop('disabled',false);
+            $('#kecamatan').prop('disabled',false);
+            $('#kelurahan').prop('disabled',false);
+            $('#kode_pos').prop('disabled',false);
+            $('#longtitude').prop('disabled',false);
+            $('#latitude').prop('disabled',false);
+            stat2 = 2;
+        }
+    });
+
+    
 
 </script>
 <script>
     document.querySelector('.form-kontak').addEventListener('submit', function(e) {
       var form = this;
-
       e.preventDefault();
-
       swal({
         title: "Sudah Yakin?",
         text: "Pastikan data yang kamu input sudah benar, ya!",
@@ -333,7 +406,81 @@
                 method: 'post',
                 data: $('.form-kontak').serialize(), // prefer use serialize method
                 success:function(data){
-                    console.log(data);     
+                    console.log(data);  
+                    $('.btn-update-tentang').empty();
+                    $('.btn-update-tentang').append('<div class="contact100-form-btn"><span>Ubah<i class="zmdi zmdi-arrow-right m-l-8"></i></span></div>');
+                    $('#nama_depan').prop('disabled',true);
+                    $('#nama_belakang').prop('disabled',true);
+
+                    var tgl = $('#tanggal_lahir').val();
+                    // console.log(tgl);
+                    $('#tanggal_lahir').prop('disabled',true);
+                    $('#tanggal_lahir').prop('type','text');
+                    $('#tanggal_lahir').val(tgl);
+
+                    $('#no_hp').prop('disabled',true);
+                    // $('#jenis_kelamin').prop('disabled',true);
+                    var jenkel = $('.jen-kel').val();
+                    // console.log(jenkel);
+                    $('.jenkel').empty();
+                    $('.jenkel').append('<input id="jenis_kelamin" class="input100" type="text" name="jenis_kelamin" placeholder="Jenis Kelamin"  disabled>');
+                    $('#jenis_kelamin').val(jenkel);
+                    $('#email').prop('disabled',true);
+                    stat = 1; 
+                }
+            });
+          });
+        } 
+      });
+    });
+</script>
+<script>
+    document.querySelector('.form-alamat').addEventListener('submit', function(e) {
+      var form = this;
+      e.preventDefault();
+      swal({
+        title: "Sudah Yakin?",
+        text: "Pastikan data yang kamu input sudah benar, ya!",
+        icon: "warning",
+        buttons: [
+          'Aku mau cek ulang.',
+          'Iya, aku yakin!'
+        ],
+        // dangerMode: true,
+      }).then(function(isConfirm) {
+        if (isConfirm) {
+          swal({
+            title: 'Data Tersimpan',
+            text: 'Sukses Disimpan kakak >_<',
+            icon: 'success'
+          }).then(function() {
+            // form.submit();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: '/biodata-alamat',
+                method: 'post',
+                data: $('.form-alamat').serialize(), // prefer use serialize method
+                success:function(data){
+                    // console.log(data);
+                    $('.btn-alamat').empty();
+                    $('.btn-alamat').append('<div class="contact100-form-btn"><span>Ubah<i class="zmdi zmdi-arrow-right m-l-8"></i></span></div>');
+                    $('#alamat').prop('disabled',true);
+                    $('#no_rumah').prop('disabled',true);
+                    $('#rt').prop('disabled',true);
+                    $('#rw').prop('disabled',true);
+                    $('#provinsi').prop('disabled',true);
+                    $('#kabupaten').prop('disabled',true);
+                    $('#kecamatan').prop('disabled',true);
+                    $('#kelurahan').prop('disabled',true);
+                    $('#kode_pos').prop('disabled',true);
+                    $('#longtitude').prop('disabled',true);
+                    $('#latitude').prop('disabled',true);
+                    stat2 = 1;     
                 }
             });
           });
@@ -344,3 +491,10 @@
 </body>
 </html>
 
+
+<script>
+                                        $('#file').change(function(){
+                                            var id = document.getElementById("file").value;
+                                            console.log(id);
+                                        });
+                                    </script>

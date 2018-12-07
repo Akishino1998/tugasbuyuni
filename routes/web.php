@@ -22,6 +22,8 @@ Route::get('/register','AuthController@index2');
 Route::post('/register','AuthController@daftar');
 Route::get('/biodata','AuthController@bio');
 Route::post('/biodata','AuthController@update_bio');
+Route::post('/biodata-alamat','AuthController@update_alamat');
+Route::post('/biodata-foto','AuthController@upload_foto');
 
 //home
 Route::get('/home','HomeController@index');
