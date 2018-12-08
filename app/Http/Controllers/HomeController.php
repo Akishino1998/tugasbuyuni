@@ -72,16 +72,22 @@ class HomeController extends Controller
                 'latitude' => $data_user->latitude,
         ]); 
         // return $request;
+        Session::put('id_order', $data2);
         if($jemput == 'Ya' || $antar == 'Ya'){
-            return redirect('lokasi-jemput-antar')->with('id_order',$data2);
+
+            return redirect('lokasi-jemput-antar');
         } 
     }
     public function set_lokasi(){
         $id_order = Session::get('id_order');
         $id_user = Session::get('id_user');
         // dd($id_order);
-        $data = OrderServisAddress::all()->where('id_transaksi', $id_order)->first();
-        // dd($data);
-        return view('set_lokasi', compact($data));
+        $data_address = OrderServisAddress::all()->where('id_transaksi', $id_order)->first();
+        // dd($data_address->id);
+
+        return view('set_lokasi', compact('data_address'));
+    }
+    public function update_lokasi(){
+
     }
 }
