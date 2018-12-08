@@ -204,12 +204,9 @@ input:focus ~ .highlight {
         	<div class="container">
         		<div class="made_life_inner">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						
-						@foreach ($data as $datas)
-							<li class="nav-item">
-								<a class="nav-link" id="{{ $datas->nama_elektronik }}-tab" data-toggle="tab" href="#{{ $datas->nama_elektronik }}" role="tab" aria-controls="{{ $datas->nama_elektronik }}" aria-selected="true">{{ $datas->nama_elektronik }}</a>
-							</li>
-						@endforeach
+						<li class="nav-item">
+							<a class="nav-link" id="map-tab" data-toggle="tab" href="#map" role="tab" aria-controls="map" aria-selected="true">{{ $datas->nama_elektronik }}</a>
+						</li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
 					@foreach ($data as $datas)
@@ -221,7 +218,7 @@ input:focus ~ .highlight {
 											<h3>Servis {{ $datas->nama_elektronik }}</h3>
 											<h6></h6>
 											{{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p> --}}
-											<form action="/servis" method="post" class="form-servis{{ $datas->id_elektronik }}">
+											<form action="/servis" method="post" class="form-servis">
 												<div class="group">      
 													<input type="text" required name="merk">
 													<span class="highlight"></span>
@@ -292,17 +289,17 @@ input:focus ~ .highlight {
         		</div>
         	</div>
         </section>
-			<!--================End Made Life Area =================-->
-			
-			
-	@endsection
+        <!--================End Made Life Area =================-->
+        
+        
+@endsection
 
-	@section('jquery')
-		<script>
-	var slideIndex = [1,1];
-	var slideId = ["mySlides1"]
-	showSlides(1, 0);
-	showSlides(1, 1);
+@section('jquery')
+	<script>
+var slideIndex = [1,1];
+var slideId = ["mySlides1"]
+showSlides(1, 0);
+showSlides(1, 1);
 
 function plusSlides(n, no) {
   showSlides(slideIndex[no] += n, no);
@@ -323,82 +320,5 @@ function showSlides(n, no) {
 
 
 </script>
-<script>
-    document.querySelector('.form-servis1').addEventListener('submit', function(e) {
-      var form = this;
-      e.preventDefault();
-      swal({
-        title: "Sudah Yakin?",
-        text: "Pastikan data yang kamu input sudah benar, ya!",
-        icon: "warning",
-        buttons: [
-          'Aku mau cek ulang.',
-          'Iya, aku yakin!'
-        ],
-        // dangerMode: true,
-      }).then(function(isConfirm) {
-        if (isConfirm) {
-          swal({
-            title: 'Data Tersimpan',
-            text: 'Sukses Disimpan kakak >_<',
-            icon: 'success'
-          }).then(function() {
-			form.submit();
-          });
-        } 
-      });
-    });
-</script>
-<script>
-    document.querySelector('.form-servis2').addEventListener('submit', function(e) {
-      var form = this;
-      e.preventDefault();
-      swal({
-        title: "Sudah Yakin?",
-        text: "Pastikan data yang kamu input sudah benar, ya!",
-        icon: "warning",
-        buttons: [
-          'Aku mau cek ulang.',
-          'Iya, aku yakin!'
-        ],
-        // dangerMode: true,
-      }).then(function(isConfirm) {
-        if (isConfirm) {
-          swal({
-            title: 'Data Tersimpan',
-            text: 'Sukses Disimpan kakak >_<',
-            icon: 'success'
-          }).then(function() {
-			form.submit();
-          });
-        } 
-      });
-    });
-</script>
-<script>
-    document.querySelector('.form-servis3').addEventListener('submit', function(e) {
-      var form = this;
-      e.preventDefault();
-      swal({
-        title: "Sudah Yakin?",
-        text: "Pastikan data yang kamu input sudah benar, ya!",
-        icon: "warning",
-        buttons: [
-          'Aku mau cek ulang.',
-          'Iya, aku yakin!'
-        ],
-        // dangerMode: true,
-      }).then(function(isConfirm) {
-        if (isConfirm) {
-          swal({
-            title: 'Data Tersimpan',
-            text: 'Sukses Disimpan kakak >_<',
-            icon: 'success'
-          }).then(function() {
-			form.submit();
-          });
-        } 
-      });
-    });
-</script>
+
 @endsection
