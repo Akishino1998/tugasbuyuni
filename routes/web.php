@@ -36,3 +36,4 @@ Route::get('/lokasi-jemput-antar','HomeController@set_lokasi');
 
 // ===========================================================
 //Route Admin
+Route::get('/admin','AdminController@index');
