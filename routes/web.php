@@ -32,3 +32,7 @@ Route::get('/servis','HomeController@create_servis');
 Route::post('/servis','HomeController@set_servis');
 
 Route::get('/lokasi-jemput-antar','HomeController@set_lokasi');
+
+
+// ===========================================================
+//Route Admin
