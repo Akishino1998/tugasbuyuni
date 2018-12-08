@@ -181,9 +181,9 @@ input:focus ~ .highlight {
 					<div class="row">
 						<div class="col-4 text-banner">
 							<div class="banner_content text-center">
-								<h2>PILIH ELEKTRONIKMU</h2>
+								<h2>ATUR LOKASI ANDA</h2>
 								<div class="page_link">
-									<p>Pilih elektronik yang akan kamu servis, ya</p>
+									<p>Pastikan lokasi anda benar, ya. Untuk penjemputan atau pengantaran.</p>
 								</div>
 							</div>
 						</div>
@@ -193,103 +193,63 @@ input:focus ~ .highlight {
 			
         </section>
 		<!--================End Home Banner Area =================-->
-		
-
-		
-
-		
-        
-        <!--================Made Life Area =================-->
-        <section class="made_life_area p_120">
-        	<div class="container">
-        		<div class="made_life_inner">
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item">
-							<a class="nav-link" id="map-tab" data-toggle="tab" href="#map" role="tab" aria-controls="map" aria-selected="true">{{ $datas->nama_elektronik }}</a>
-						</li>
-					</ul>
-					<div class="tab-content" id="myTabContent">
-					@foreach ($data as $datas)
-						
-							<div class="tab-pane fade" id="{{ $datas->nama_elektronik }}" role="tabpanel" aria-labelledby="{{ $datas->nama_elektronik }}-tab">
-								<div class="row made_life_text">
-									<div class="col-lg-6">
-										<div class="left_side_text">
-											<h3>Servis {{ $datas->nama_elektronik }}</h3>
-											<h6></h6>
-											{{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p> --}}
-											<form action="/servis" method="post" class="form-servis">
-												<div class="group">      
-													<input type="text" required name="merk">
-													<span class="highlight"></span>
-													<span class="bar"></span>
-													<label>Merk</label>
-												</div>
-												<div class="group">      
-													<input type="text" required name="seri">
-													<span class="highlight"></span>
-													<span class="bar"></span>
-													<label>Seri</label>
-												</div>
-												<div class="group">      
-													<input type="text" required name="kerusakan">
-													<span class="highlight"></span>
-													<span class="bar"></span>
-													<label>Kerusakan</label>
-												</div>
-												<div class="group">      
-													<input type="text" required name="penyebab">
-													<span class="highlight"></span>
-													<span class="bar"></span>
-													<label>Penyebab</label>
-												</div>
-												<div class="group">      
-													<input type="text" name="catatan" value="Catatan Tambahan">
-													<span class="highlight"></span>
-													<span class="bar"></span>
-													<label>Catatan</label>
-												</div>
-												<div class="container">
-													<div class="row">
-														<div class="col-6">
-															<div class="wrapper">
-																<div class="switch_box box_1">
-																	<label for="switchbox">Jemput</label>
-																	<input type="checkbox" class="switch_1" id="switchbox" name="jemput">
-																</div>
-															</div>
-														</div>
-														<div class="col-6">
-															<div class="wrapper">
-																<div class="switch_box box_1">
-																	<label for="switchbox">Antar</label>
-																	<input type="checkbox" class="switch_1" id="switchbox" name="antar">
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<input type="hidden" value="{{ $datas->id_elektronik }}" name="id_elektronik">
-												<button type="submit" class="main_btn">Mulai Servis</button>
-												@csrf
-											</form>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="chart_img">
-											<img class="img-fluid" src="img/produk/{{ $datas->foto}}" alt="" width="400" height="400">
-										</div>
-									</div>
-								</div>
-							</div>
-						
-					@endforeach
-						</div>
-					</div>
-        		</div>
-        	</div>
+		<section class="contact_area p_120">
+            <div class="container">
+                <div id="mapBox" class="mapBox" 
+                    data-lat="40.701083" 
+                    data-lon="-74.1522848" 
+                    data-zoom="13" 
+                    data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
+                    data-mlat="40.701083"
+                    data-mlon="-74.1522848">
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="contact_info">
+                            <div class="info_item">
+                                <i class="lnr lnr-home"></i>
+                                <h6>California, United States</h6>
+                                <p>Santa monica bullevard</p>
+                            </div>
+                            <div class="info_item">
+                                <i class="lnr lnr-phone-handset"></i>
+                                <h6><a href="#">00 (440) 9865 562</a></h6>
+                                <p>Mon to Fri 9am to 6 pm</p>
+                            </div>
+                            <div class="info_item">
+                                <i class="lnr lnr-envelope"></i>
+                                <h6><a href="#">support@colorlib.com</a></h6>
+                                <p>Send us your query anytime!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="message" id="message" rows="1" placeholder="Enter Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-right">
+                                <button type="submit" value="submit" class="btn submit_btn">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
-        <!--================End Made Life Area =================-->
+
         
         
 @endsection

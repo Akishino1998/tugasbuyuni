@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Elektronik;
 use App\User;
 use App\OrderServis;
+use App\OrderServisAddress;
 use DateTime;
 class HomeController extends Controller
 {
@@ -72,11 +73,15 @@ class HomeController extends Controller
         ]); 
         // return $request;
         if($jemput == 'Ya' || $antar == 'Ya'){
-            // return redirect('lokasi-jemput-antar');
+            return redirect('lokasi-jemput-antar')->with('id_order',$data2);
         } 
     }
     public function set_lokasi(){
-
-        return view('set_lokasi');
+        $id_order = Session::get('id_order');
+        $id_user = Session::get('id_user');
+        // dd($id_order);
+        $data = OrderServisAddress::all()->where('id_transaksi', $id_order)->first();
+        // dd($data);
+        return view('set_lokasi', compact($data));
     }
 }
