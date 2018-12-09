@@ -40,7 +40,7 @@
                         <div class="col-2"></div>
                         <div class="col-6 btn-next">
                             <ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><a href="#" class="tickets_btn">Sudah Sesuai</a></li>
+								<li class="nav-item"><button class="tickets_btn">Sudah Sesuai</button></li>
 							</ul>
                         </div>
 					</div>
@@ -100,6 +100,10 @@
                                     <div class="form-group">
                                         <label for="kode_pos">Kode POS</label>
                                         <input type="text" class="form-control" id="kode_pos" name="kode_pos" placeholder="Kode POS" value="{{ $data_address->kode_pos }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="no_hp">No. HP</label>
+                                        <input type="text" class="form-control" id="no_hp" name="no_hp_penerima" placeholder="Nomor Hp" value="{{ $shares->no_hp }}">
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" value="submit" class="btn submit_btn">Simpan</button>    
@@ -214,6 +218,29 @@
         }
 	}
 	
+</script>
+<script>
+    $('.tickets_btn').click(function(){
+        swal({
+            title: "Sudah Yakin?",
+            text: "Saat kamu melakukan servis, sistem akan segera menghubungi Anda untuk konfirmasi servis.",
+            icon: "warning",
+            buttons: [
+                'Aku cek lagi deh!',
+                'Yes, lanjutkan!'
+            ],
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                swal({
+                    title: 'Selamat!',
+                    text: 'Sebentar lagi, akan ada konfirmasi lebih lanjut!',
+                    icon: 'success'
+                }).then(function() {
+                    window.location.href = "/list-servis";
+                });
+            }
+        })
+    });
 </script>
 
 @endsection

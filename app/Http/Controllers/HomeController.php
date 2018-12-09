@@ -84,10 +84,45 @@ class HomeController extends Controller
         // dd($id_order);
         $data_address = OrderServisAddress::all()->where('id_transaksi', $id_order)->first();
         // dd($data_address->id);
-
-        return view('set_lokasi', compact('data_address'));
+        $shares = DB::table('tb_user')
+            ->where('tb_user.id_user',$id_user)
+            ->select('no_hp')
+            ->get()
+            ->first();
+        return view('set_lokasi', compact('data_address','shares'));
     }
-    public function update_lokasi(){
+    public function update_lokasi(Request $request){
+        // dd($request);
+        $id_order = Session::get('id_order');
+        $id_user = Session::get('id_user');
+        
+        // dd($id_order);
+        DB::table('tb_order_servis_address')
+            ->where('id_transaksi', $id_order)
+            ->update([
+                'alamat' => $request->alamat,
+                'no_rumah' => $request->no_rumah,
+                'rt' => $request->rt,
+                'rw' => $request->rw,
+                'provinsi' => $request->provinsi,
+                'kabupaten' => $request->kabupaten,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->kelurahan,
+                'kode_pos' => $request->kode_pos,
+                'longtitude' => $request->longtitude,
+                'latitude' => $request->latitude,
+                'no_hp_penerima' => $request->no_hp_penerima
+            ]);
 
-    }
+            $my_apikey = "9KJS7UCBSXI0EE3P1DGU"; 
+            $destination = "6285787536018"; 
+            $message = "MESSAGE TO SEND"; 
+            $api_url = "http://panel.apiwha.com/send_message.php"; 
+            $api_url .= "?apikey=". urlencode ($my_apikey); 
+            $api_url .= "&number=". urlencode ($destination); 
+            $api_url .= "&text=". urlencode ($message); 
+            $my_result_object = json_decode(file_get_contents($api_url, false));
+
+            // return redirect("https://wa.me/6285828949593?text=I'm%20interested%20in%20your%20car%20for%20sale");
+    }   
 }
