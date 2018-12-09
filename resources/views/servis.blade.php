@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section('title','Servis | Nyervisga')
 @section('content')
 	<style>
 	.wrapper{

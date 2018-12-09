@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section('title','Set Lokasi \ Nyervisga?')
 @section('content')
 	<style>
          #mapBox1 {
@@ -40,7 +40,7 @@
                         <div class="col-2"></div>
                         <div class="col-6 btn-next">
                             <ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><button class="tickets_btn">Sudah Sesuai</button></li>
+								<li class="nav-item"><button class="tickets_btn btn-sudah">Sudah Sesuai</button></li>
 							</ul>
                         </div>
 					</div>
@@ -220,7 +220,7 @@
 	
 </script>
 <script>
-    $('.tickets_btn').click(function(){
+    $('.btn-sudah').click(function(){
         swal({
             title: "Sudah Yakin?",
             text: "Saat kamu melakukan servis, sistem akan segera menghubungi Anda untuk konfirmasi servis.",
@@ -236,7 +236,7 @@
                     text: 'Sebentar lagi, akan ada konfirmasi lebih lanjut!',
                     icon: 'success'
                 }).then(function() {
-                    window.location.href = "/list-servis";
+                    window.location.href = "/list-servis/success";
                 });
             }
         })

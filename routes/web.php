@@ -34,6 +34,8 @@ Route::post('/servis','HomeController@set_servis');
 Route::get('/lokasi-jemput-antar','HomeController@set_lokasi');
 Route::post('/lokasi-jemput-antar','HomeController@update_lokasi');
 
+Route::get('/list-servis/','HomeController@list_servis');
+
 
 // ===========================================================
 //Route Admin

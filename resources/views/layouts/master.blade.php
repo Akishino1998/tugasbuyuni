@@ -4,8 +4,8 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" href="img/favicon.png" type="image/png">
-        <title>Nexus SaaS</title>
+        <link rel="icon" href="logo/logonyervisga.png" type="image/png">
+        <title>@yield('title')</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="vendors/linericon/style.css">
@@ -36,9 +36,9 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav justify-content-center">
-								<li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li> 
+								<li class="nav-item active"><a class="nav-link" href="\home">Home</a></li> 
 								<li class="nav-item"><a class="nav-link" href="/about">About</a></li> 
-								<li class="nav-item"><a class="nav-link" href="services.html">Services</a>
+								<li class="nav-item"><a class="nav-link" href="\servis">Services</a>
 								<li class="nav-item submenu dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
 									<ul class="dropdown-menu">
@@ -57,14 +57,14 @@
 							</ul>
 							@if ( Session::has('id_user') )
 								<ul class="nav navbar-nav navbar-right">
-									<li class="nav-item"><a href="#" class="tickets_btn">Hai, {{ Session::get('nama') }}</a></li>
+									<li class="nav-item"><a href="/biodata" class="tickets_btn btn-account">Hai, {{ Session::get('nama') }}</a></li>
 								</ul>
 							@else
 								<ul class="nav navbar-nav navbar-right">
-									<li class="nav-item"><a href="/register" class="tickets_btn">DAFTAR</a></li>
+									<li class="nav-item"><a href="/register" class="tickets_btn btn_daftar">DAFTAR</a></li>
 								</ul>
 								<ul class="nav navbar-nav navbar-right">
-									<li class="nav-item"><a href="/login" class="tickets_btn">LOGIN</a></li>
+									<li class="nav-item"><a href="/login" class="tickets_btn btn_login">LOGIN</a></li>
 								</ul>
 							@endif
 						</div> 
