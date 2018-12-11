@@ -10,6 +10,7 @@ use App\User;
 use App\OrderServis;
 use App\OrderServisAddress;
 use App\Kurir;
+use DateTime;
 class AdminController extends Controller
 {
     public function index(){
@@ -43,6 +44,7 @@ class AdminController extends Controller
     public function addkurir(Request $request){
         // dd($request);
         $id_order = $request->id_tx;
+        $now = new DateTime();
         // $id_admin = Session::get('id_admin');
         $id_admin = '1';
         DB::table('tb_order_servis_address')
@@ -55,8 +57,28 @@ class AdminController extends Controller
             ->update([
                 'status' => 'Penjemputan',
                 'id_admin' => $id_admin,
+                'tanggal_penjemputan' => $now,
         ]);
         return $request;
+    }
+    public function addkelengkapan(Request $request){
+        $text = $request->kelengkapan;
+        $id_order = $request->id_tx2;
+        // $id_admin = Session::get('id_admin');
+        $id_admin = '1';
+        $now = new DateTime();
+        DB::table('tb_order_servis')
+            ->where('id_order_servis', $id_order)
+            ->update([
+                'kelengkapan' => $text,
+                'id_admin' => $id_admin,
+                'status' => 'Accept',
+                'tanggal_masuk' => $now,
+        ]);
+        return $request;
+    }
+    public function addteknisi(){
+        
     }
     public function reload_notif(){
         $pending = OrderServis::all()->where('status','Pending')->COUNT('id_order_servis');
@@ -64,5 +86,25 @@ class AdminController extends Controller
         $jemput = OrderServis::all()->where('status','Penjemputan')->COUNT('id_order_servis');
         // dd($pending);
         return $pending."|".$accept."|".$jemput;
+    }
+    public function servis_pending(){
+        $data = ModelView_Servis::all()->where('status','Pending');
+        $data_kurir = Kurir::all();
+        return view('admin.pending', compact('data', 'data_kurir'));
+    }
+    public function servis_penjemputan(){
+        $data = ModelView_Servis::all()->where('status','Penjemputan');
+        $data_kurir = Kurir::all();
+        return view('admin.penjemputan', compact('data', 'data_kurir'));
+    }
+    public function servis_masuk(){
+        $data = ModelView_Servis::all()->where('status','Accept');
+        $data_kurir = Kurir::all();
+        return view('admin.servis_masuk', compact('data', 'data_kurir'));
+    }
+    public function servis_proses(){
+        $data = ModelView_Servis::all()->where('status','Proses');
+        $data_kurir = Kurir::all();
+        return view('admin.servis_proses', compact('data', 'data_kurir'));
     }
 }

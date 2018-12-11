@@ -4,7 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" href="logo/logonyervisga.png" type="image/png">
+        <link rel="icon" href="{{ asset('logo/logonyervisga.png') }}" type="image/png">
         <title>@yield('title')</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
