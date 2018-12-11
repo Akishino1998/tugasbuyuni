@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('/home');
 });
 // ================================================================================
 //Authentifikasi
@@ -25,7 +26,7 @@ Route::post('/biodata','AuthController@update_bio');
 Route::post('/biodata-alamat','AuthController@update_alamat');
 Route::post('/biodata-foto','AuthController@upload_foto');
 
-//home
+//home 
 Route::get('/home','HomeController@index');
 
 Route::get('/servis','HomeController@create_servis');
@@ -34,13 +35,28 @@ Route::post('/servis','HomeController@set_servis');
 Route::get('/lokasi-jemput-antar','HomeController@set_lokasi');
 Route::post('/lokasi-jemput-antar','HomeController@update_lokasi');
 
-Route::get('/list-servis/','HomeController@list_servis');
+Route::get('/list-servis','HomeController@list_servis');
+Route::get('/daftar-elektronikku','HomeController@daftar_elektronikku');
+
+
+
+Route::get('/keluar', function () {
+    session()->flush();
+    return redirect('/home');
+
+});
+
 
 
 // ===========================================================
 //Route Admin
-Route::get('/home-admin','AdminController@index');
-Route::get('home-login','AdminController@login');
-Route::get('home-register','AdminController@register');
+Route::get('/admin/dasboard','AdminController@index');
+Route::get('/admin/dasboard/{id_user}/{id_order}','AdminController@show');
+Route::post('/admin/dasboard/addkurir','AdminController@addkurir');
+Route::post('/admin/dasboard/reload-notif','AdminController@reload_notif');
+
+
+Route::get('login-admin','AdminController@login');
+Route::get('register-admin','AdminController@register');
 Route::get('data-user','AdminController@data_user');
 Route::get('data-customer','AdminController@data_customer');

@@ -56,6 +56,7 @@
                             <table id="myTable" class="display">
                                 <thead>
                                     <tr>
+                                        <th>Kode Unik</th>
                                         <th>Type Servis</th>
                                         <th>Merk</th>
                                         <th>No. Seri</th>
@@ -70,13 +71,13 @@
                                 <tbody>
                                     @foreach ($data_elektronik as $item)
                                     <tr>
-                                        @if ($item->id_elektronik == '1')
-                                            <td>Laptop</td>
-                                        @elseif($item->id_elektronik == '2')
-                                            <td>Printer</td>
-                                        @elseif($item->id_elektronik == '3')
-                                            <td>Komputer</td>
-                                        @endif
+                                        <td><b>{{ $item->kode_unik }}</b></td>
+                                        @foreach ($elektronik as $items)
+                                            @if ($item->id_elektronik == $items->id_elektronik)
+                                                <td>{{ $items->nama_elektronik }}</td>
+                                            @endif
+                                        @endforeach
+                                        
                                         <td>{{ $item->merk }}</td>
                                         <td>{{ $item->seri }}</td>
                                         <td>{{ $item->kelengkapan }}</td>

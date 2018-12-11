@@ -106,7 +106,7 @@
                                         <input type="text" class="form-control" id="no_hp" name="no_hp_penerima" placeholder="Nomor Hp" value="{{ $shares->no_hp }}">
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" value="submit" class="btn submit_btn">Simpan</button>    
+                                        <button type="submit" value="submit" class="btn submit_btn">Simpan dan lanjutkan</button>    
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-right">
@@ -236,7 +236,7 @@
                     text: 'Sebentar lagi, akan ada konfirmasi lebih lanjut!',
                     icon: 'success'
                 }).then(function() {
-                    window.location.href = "/list-servis/success";
+                    window.location.href = "/list-servis";
                 });
             }
         })

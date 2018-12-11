@@ -28,11 +28,11 @@
         <!--================End Home Banner Area =================-->
         
         <!--================Work Area =================-->
-        <section class="work_area p_120">
+        {{-- <section class="work_area p_120">
         	<div class="container">
         		<div class="main_title">
         			<h2>Kenapa Harus Di Sini?</h2>
-        			{{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p> --}}
+        			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
         		</div>
         		<div class="work_inner row">
         			<div class="col-lg-4">
@@ -58,11 +58,11 @@
         			</div>
         		</div>
         	</div>
-        </section>
+        </section> --}}
         <!--================End Work Area =================-->
         
         <!--================Made Life Area =================-->
-        <section class="made_life_area p_120">
+        {{-- <section class="made_life_area p_120">
         	<div class="container">
         		<div class="made_life_inner">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -151,11 +151,11 @@
 					</div>
         		</div>
         	</div>
-        </section>
+        </section> --}}
         <!--================End Made Life Area =================-->
         
         <!--================Screen Area =================-->
-        <section class="screen_area text-center p_120">
+        {{-- <section class="screen_area text-center p_120">
         	<div class="container">
         		<div class="main_title">
         			<h2>Unique Screens that work perfectly</h2>
@@ -163,11 +163,11 @@
         		</div>
         		<img class="img-fluid" src="img/banner/home-left-1.png" alt="">
         	</div>
-        </section>
+        </section> --}}
         <!--================End Screen Area =================-->
         
         <!--================Made Life Area =================-->
-        <section class="made_life_area p_120">
+        {{-- <section class="made_life_area p_120">
         	<div class="container">
         		<div class="made_life_inner">
 					<div class="row made_life_text">
@@ -187,11 +187,11 @@
 					</div>
         		</div>
         	</div>
-        </section>
+        </section> --}}
         <!--================End Made Life Area =================-->
         
         <!--================Price Area =================-->
-        <section class="price_area p_120">
+        {{-- <section class="price_area p_120">
         	<div class="container">
         		<div class="main_title">
         			<h2>Choose Your Price Plan</h2>
@@ -257,11 +257,11 @@
         			</div>
         		</div>
         	</div>
-        </section>
+        </section> --}}
         <!--================End Price Area =================-->
         
         <!--================Testimonials Area =================-->
-        <section class="testimonials_area p_120">
+        {{-- <section class="testimonials_area p_120">
         	<div class="container">
         		<div class="main_title">
         			<h2>Feedback from Customers</h2>
@@ -390,11 +390,11 @@
         			</div>
         		</div>
         	</div>
-        </section>
+        </section> --}}
         <!--================End Testimonials Area =================-->
         
         <!--================Made Life Area =================-->
-        <section class="made_life_area made_white p_120">
+        {{-- <section class="made_life_area made_white p_120">
         	<div class="container">
         		<div class="made_life_inner">
 					<div class="row made_life_text">
@@ -414,11 +414,11 @@
 					</div>
         		</div>
         	</div>
-        </section>
+        </section> --}}
         <!--================End Made Life Area =================-->
         
         <!--================Impress Area =================-->
-        <section class="impress_area p_120">
+        {{-- <section class="impress_area p_120">
         	<div class="container">
         		<div class="impress_inner">
 					<h2>Got Impressed to our features?</h2>
@@ -426,7 +426,7 @@
 					<a class="banner_btn2" href="#">Request Free Demo</a>
         		</div>
         	</div>
-        </section>
+        </section> --}}
         <!--================End Impress Area =================-->
 @endsection      
 	

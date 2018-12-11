@@ -10,6 +10,8 @@ use App\User;
 use App\OrderServis;
 use App\OrderServisAddress;
 use DateTime;
+use Illuminate\Support\Str;
+
 class HomeController extends Controller
 {
     public function index(){
@@ -51,6 +53,7 @@ class HomeController extends Controller
                 'jemput' => $jemput,
                 'antar' => $antar,
                 'catatan' => $request->catatan,
+                'kode_unik' => Str::random(5),
         ]);  
         
 
@@ -98,6 +101,33 @@ class HomeController extends Controller
         $id_order = Session::get('id_order');
         $id_user = Session::get('id_user');
         
+        $data = User::all()->where('id_user',$id_user)->first();
+        if($data->no_hp_penerima == null){
+            DB::table('tb_user')
+            ->where('id_user', $id_user)
+            ->update([
+                'no_hp' => $request->no_hp_penerima
+            ]);
+        }
+        if($data->alamat == null){
+            DB::table('tb_user')
+            ->where('id_user', $id_user)
+            ->update([
+                'alamat' => $request->alamat,
+                'no_rumah' => $request->no_rumah,
+                'rt' => $request->rt,
+                'rw' => $request->rw,
+                'provinsi' => $request->provinsi,
+                'kabupaten' => $request->kabupaten,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->kelurahan,
+                'kode_pos' => $request->kode_pos,
+                'longtitude' => $request->longtitude,
+                'latitude' => $request->latitude,
+            ]);
+        }
+
+
         // dd($id_order);
         DB::table('tb_order_servis_address')
             ->where('id_transaksi', $id_order)
@@ -126,32 +156,79 @@ class HomeController extends Controller
                 // return $no_hp;
             }
 
-            $data_elektronik = OrderServis::all()->where('id_order_servis',$id_order)->first();
-            $elektronik = Elektronik::all()->where('id_elektronik',$data_elektronik->id_elektronik)->first();
-            // return $elektronik;
-            $my_apikey = "9KJS7UCBSXI0EE3P1DGU"; 
-            $destination = $no_hp; 
-            $message = "Servis telah masuk dalam list kami. Selanjutnya info tentang servisan akan melalui ini. Servis ".$elektronik->nama_elektronik.". Merk : ".$data_elektronik->merk.". Seri : ".$data_elektronik->seri.". Kerusakan : ".$data_elektronik->kerusakan; 
-            $api_url = "http://panel.apiwha.com/send_message.php"; 
-            $api_url .= "?apikey=". urlencode ($my_apikey); 
-            $api_url .= "&number=". urlencode ($destination); 
-            $api_url .= "&text=". urlencode ($message); 
-            $my_result_object = json_decode(file_get_contents($api_url, false));
+            // $data_elektronik = OrderServis::all()->where('id_order_servis',$id_order)->first();
+            // $elektronik = Elektronik::all()->where('id_elektronik',$data_elektronik->id_elektronik)->first();
+            // // return $elektronik;
+            // $my_apikey = "9KJS7UCBSXI0EE3P1DGU"; 
+            // $destination = $no_hp; 
+            // $message = "Servis telah masuk dalam list kami. Selanjutnya info tentang servisan akan melalui ini. Servis ".$elektronik->nama_elektronik.". Merk : ".$data_elektronik->merk.". Seri : ".$data_elektronik->seri.". Kerusakan : ".$data_elektronik->kerusakan; 
+            // $api_url = "http://panel.apiwha.com/send_message.php"; 
+            // $api_url .= "?apikey=". urlencode ($my_apikey); 
+            // $api_url .= "&number=". urlencode ($destination); 
+            // $api_url .= "&text=". urlencode ($message); 
+            // $my_result_object = json_decode(file_get_contents($api_url, false));
             
             return redirect('list-servis'); 
             // return redirect("https://wa.me/6285828949593?text=I'm%20interested%20in%20your%20car%20for%20sale");
     } 
     public function list_servis(){
+        if(Session::has('id_order')){
+
+        
         $id_order = Session::get('id_order');
         $id_user = Session::get('id_user');
-        $data_elektronik = OrderServis::all()->where('id_user',$id_user);
-        $elektronik = Elektronik::all()->where('id_elektronik',$data_elektronik[0]->id_elektronik);
-        // dd($elektronik); 
+        
+        
         $shares = DB::table('tb_elektronik')
             ->where('tb_elektronik.id_elektronik','tb_order_servis.id_elektronik')
             ->select('nama_elektronik')
             ->get();
         // dd($elektronik);
-        return view('list_servis', compact('data_elektronik'));
+            $data = User::all()->where('id_user',$id_user)->first();
+            $no_hp = $data->no_hp ;
+            // return ;
+            if( $no_hp[0] == '0'){
+                $no_hp= substr_replace($no_hp,'62',0,1);
+                // return $no_hp;
+            }else if($no_hp[0] == '+'){
+                $no_hp= substr_replace($no_hp,'62',0,3);
+                // return $no_hp;
+            }
+        $data_elektronik = OrderServis::all()->where('id_order_servis',$id_order)->first();
+        $elektronik = Elektronik::all()->where('id_elektronik',$data_elektronik->id_elektronik)->first();
+        // return $data_elektronik->id_elektronik;
+        $my_apikey = "9KJS7UCBSXI0EE3P1DGU"; 
+        $destination = $no_hp; 
+        $message = "Terima kasih telah mempercayakan kepada kami!
+Servis telah masuk dalam list kami.
+Selanjutnya info tentang servisan akan melalui ini. 
+
+Kode Unik Servis : ".$data_elektronik->kode_unik."
+Jenis Servis : Servis ".$elektronik->nama_elektronik.".
+Merk : ".$data_elektronik->merk.".
+Seri : ".$data_elektronik->seri.". 
+Kerusakan : ".$data_elektronik->kerusakan; 
+        $api_url = "http://panel.apiwha.com/send_message.php"; 
+        $api_url .= "?apikey=". urlencode ($my_apikey); 
+        $api_url .= "&number=". urlencode ($destination); 
+        $api_url .= "&text=". urlencode ($message); 
+        $my_result_object = json_decode(file_get_contents($api_url, false));
+        return redirect('/daftar-elektronikku');
+        }else{
+            return redirect('/daftar-elektronikku');
+        // $data_elektronik = OrderServis::all()->where('id_user',$id_user);
+        // // dd($data_elektronik); 
+        // $elektronik = Elektronik::all();
+
+
+        // return view('list_servis', compact('data_elektronik','elektronik'));
+        }
+    }
+    public function daftar_elektronikku(){
+        $id_user = Session::get('id_user');
+        $data_elektronik = OrderServis::all()->where('id_user',$id_user);
+        // dd($data_elektronik); 
+        $elektronik = Elektronik::all();
+        return view('list_servis', compact('data_elektronik','elektronik'));
     }
 }

@@ -48,6 +48,16 @@
                         <span class="contact100-form-title image-title">
                             <a href="/home"><img src="logo/logonyervisga.png" alt="" width="200" height="200"></a>
                         </span>
+                        <a href="\keluar">
+                        <div class="container-contact100-form-btn btn-update-tentang">
+                                <div class="contact100-form-btn">
+                                    <span>
+                                        Keluar
+                                    <i class="zmdi zmdi-arrow-right m-l-8"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
                     </div>
                     <br>
                     <div class="wrap-contact1000">
