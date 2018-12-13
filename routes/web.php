@@ -51,11 +51,14 @@ Route::get('/keluar', function () {
 // ===========================================================
 //Route Admin
 Route::get('/admin/dasboard','AdminController@index');
-Route::get('/admin/dasboard/{id_user}/{id_order}','AdminController@show');
+Route::get('/admin/dasboard/{id_order}/{id_user}','AdminController@show');
 Route::post('/admin/dasboard/addkurir','AdminController@addkurir');
 Route::post('/admin/dasboard/addkelengkapan','AdminController@addkelengkapan');
 Route::post('/admin/dasboard/addteknisi','AdminController@addteknisi');
+Route::post('/admin/dasboard/cancel-servis','AdminController@calcel_servis');
 Route::post('/admin/dasboard/reload-notif','AdminController@reload_notif');
+Route::post('/admin/dasboard/addkurirantar','AdminController@addkurirantar');
+Route::post('/admin/dasboard/addhargaservis','AdminController@addhargaservis');
 Route::get('/admin/servis-pending','AdminController@servis_pending');
 Route::get('/admin/servis-penjemputan','AdminController@servis_penjemputan');
 Route::get('/admin/servis-masuk','AdminController@servis_masuk');

@@ -55,7 +55,7 @@
                                                             <td> <span class="badge badge-pending">Penjemputan</span> </td>
                                                             <td>
                                                                 <button class="btn btn-primary btn-submit" data-toggle="modal" data-target="#myModal" value="{{ $item->id_order }}/{{ $item->id_user }}">View</button>
-                                                                <button class="btn btn-primary btn-submit" data-toggle="modal" data-target="#myModal2" value="{{ $item->id_order }}/{{ $item->id_user }}">Edit</button>
+                                                                <button class="btn btn-primary btn-submit2" data-toggle="modal" data-target="#myModal2" value="{{ $item->id_order }}/{{ $item->id_user }}">Edit</button>
                                                             </td>
                                                             {{-- <input type="hidden" value="{{ $item->id_order }}" name="id_order" id="id_order">  --}}
                                                             {{-- <input type="hidden" value="{{ $item->id_user }}" name="id_user" id="id_user">  --}}
@@ -124,6 +124,7 @@
                 </form>
             </div>
         </div>
+        
         <!-- Modal -->
         <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -145,6 +146,23 @@
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class=" form-control-label">Taksiran Harga</label>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                                    <input class="form-control" name="taksiran1">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                                    <input class="form-control" name="taksiran2">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         
@@ -164,8 +182,14 @@
             $('#latclicked').val(res[0]);
             $('#longclicked').val(res[1]);
             $('#id_tx').val(res[3]);
-            $('#id_tx2').val(res[3]);
             initMap();
+        });
+    });
+    $('.btn-submit2').click(function(){
+        var id = $(this).val();
+        $.get('dasboard/'+id, function(data){
+            var res = data.split("|");
+            $('#id_tx2').val(res[3]);
         });
     });
     

@@ -70,7 +70,7 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li>
                         <a href="/admin/dasboard"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
                     <li class="menu-title">Servis</li><!-- /.menu-title -->
@@ -87,9 +87,14 @@
                         <a href="/admin/servis-proses"> <i class="menu-icon fa fa-wrench"></i>Proses</a>
                     </li>
                     <li>
+                        <a href="/admin/servis-pengantaran"> <i class="menu-icon fa fa-check-circle"></i>Pengantaran</a>
+                    </li>
+                    <li>
                         <a href="/admin/servis-selesai"> <i class="menu-icon fa fa-check-circle"></i>Selesai</a>
                     </li>
-
+                    <li>
+                        <a href="/admin/servis-calcel"> <i class="menu-icon fa fa-check-circle"></i>Calcel</a>
+                    </li>
                     <li class="menu-title">Elektronik</li><!-- /.menu-title -->
                     <li>
                         <a href="/admin/add-elektronik"> <i class="menu-icon fa fa-tasks"></i>Elektronik</a>

@@ -36,7 +36,7 @@
                                                     <th>Nama User</th>
                                                     <th>Jenis Elektronik</th>
                                                     <th>Kerusakan</th>
-                                                    <th>Jemput</th>
+                                                    <th>Antar</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -51,13 +51,13 @@
                                                             <td> {{ $item->nama_user }} </td>
                                                             <td> {{ $item->nama_elektronik }} </td>
                                                             <td> {{ $item->kerusakan }} </td>
-                                                            <td>{{ $item->jemput }}</td>
+                                                            <td>{{ $item->antar }}</td>
                                                             <td> <span class="badge badge-pending">Proses</span> </td>
                                                             <td>
-                                                                @if ($item->jemput == 'Ya')
-                                                                    <button class="btn btn-primary btn-submit" data-toggle="modal" data-target="#myModal" value="{{ $item->id_order }}/{{ $item->id_user }}">Edit</button>
+                                                                @if ($item->antar != 'Ya')
+                                                                    <button class="btn btn-primary btn-submit" data-toggle="modal" data-target="#myModal" value="{{ $item->id_order }}/{{ $item->id_user }}">Selesai</button>
                                                                 @else
-                                                                    <button class="btn btn-primary btn-submit" data-toggle="modal2" data-target="#myModal2" value="{{ $item->id_order }}/{{ $item->id_user }}">Edit</button>
+                                                                    <button class="btn btn-primary btn-submit2" data-toggle="modal" data-target="#myModal2" value="{{ $item->id_order }}/{{ $item->id_user }}">Selesai</button>
                                                                 @endif
                                                             </td>
                                                             {{-- <input type="hidden" value="{{ $item->id_order }}" name="id_order" id="id_order">  --}}
@@ -72,31 +72,6 @@
                                 </div>
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-8 -->
-
-                        {{-- <div class="col-xl-4">
-                            <div class="row">
-                                <div class="col-lg-6 col-xl-12">
-                                    <div class="card br-0">
-                                        <div class="card-body">
-                                            <div class="chart-container ov-h">
-                                                <div id="flotPie1" class="float-chart"></div>
-                                            </div>
-                                        </div>
-                                    </div><!-- /.card -->
-                                </div>
-
-                                <div class="col-lg-6 col-xl-12">
-                                    <div class="card bg-flat-color-3  ">
-                                        <div class="card-body">
-                                            <h4 class="card-title m-0  white-color ">August 2018</h4>
-                                        </div>
-                                         <div class="card-body">
-                                             <div id="flotLine5" class="flot-line"></div>
-                                         </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-                        {{-- </div> <!-- /.col-md-4 --> --}}
                     </div>
                 </div>
                 <!-- /.orders -->
@@ -107,7 +82,47 @@
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
-                <form class="modal-content kurir-form" action="/admin/dasboard/addkurir" method="POST">
+                <form class="modal-content addharga-form" action="/admin/dasboard/addhargaservis" method="POST">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Data Servis <span class="nama_user">ds</span></h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="harga">Harga</label>
+                                <div class="input-group" id="harga">
+                                    <div class="input-group-addon" ><i class="fa fa-money"></i></div>
+                                    <input class="form-control" name="harga_servis">
+                                </div>
+                                <label for="garansi">Garansi</label>
+                                <div class="input-group" id="garansi">
+                                    <input class="form-control" name="garansi">
+                                </div>
+                                <label for="textarea-input">Catatan</label>
+                                <textarea name="keterangan" id="textarea-input" rows="9" placeholder="Catatan..." class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 161px;"></textarea>
+                                
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" name="submit" class="btn btn-primary" >Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                
+                            </div>
+                        </div>  
+                        <input type="hidden" name="id_tx" id="id_tx" value="" ><br>
+                                
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                    @csrf
+                </form>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content kurir-form" action="/admin/dasboard/addkurirantar" method="POST">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="myModalLabel">Data Servis <span class="nama_user">ds</span></h4>
@@ -123,14 +138,22 @@
                                     <option value="{{ $item->id_kurir }}">{{ $item->nama_kurir }}</option>
                                     @endforeach
                                 </select>
+                                
+                                <label for="harga">Harga</label>
+                                <div class="input-group" id="harga">
+                                    <div class="input-group-addon" ><i class="fa fa-money"></i></div>
+                                    <input class="form-control" name="harga_servis">
+                                </div>
                             </div>
                             <div class="col-6">
                                 <button type="submit" name="submit" class="btn btn-primary" >Save</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                
                             </div>
                         </div>
+                        <label for="mapBox1">Lokasi Antar</label>
                         <div id="mapBox1"></div>   
-                        <input type="hidden" name="id_tx" id="id_tx" value="" ><br>
+                        <input type="hidden" name="id_tx" id="id_tx2" value="" ><br>
                         <input type="hidden" name="latitude" id="latclicked" value="" ><br>
                         <input type="hidden" name="longtitude" id="longclicked" value=""><br>
                                 
@@ -150,9 +173,16 @@
         var id = $(this).val();
         $.get('dasboard/'+id, function(data){
             var res = data.split("|");
+            $('#id_tx2').val(res[3]);
+        });
+    });
+    $('.btn-submit2').click(function(){
+        var id = $(this).val();
+        $.get('dasboard/'+id, function(data){
+            var res = data.split("|");
             $('#latclicked').val(res[0]);
             $('#longclicked').val(res[1]);
-            $('#id_tx').val(res[3]);
+            $('#id_tx2').val(res[3]);
             initMap();
         });
     });
@@ -234,12 +264,12 @@
             });
 
             $.ajax({
-                url: '/admin/dasboard/addkurir',
+                url: '/admin/dasboard/addkurirantar',
                 method: 'post',
                 data: $('.kurir-form').serialize(), // prefer use serialize method
                 success:function(data){
                     console.log(data);  
-                    location.href = "/admin/servis-masuk";
+                    // location.href = "/admin/servis-masuk";
                     var id = $('#id_tx').val();
                     // console.log(data->id_tx);
                     // $('.id-'.id).remove();
@@ -250,7 +280,52 @@
                 text: 'Sukses Disimpan kakak >_<',
                 icon: 'success'
             }).then(function() {
-                $('#myModal').modal('hide');
+                $('#myModal2').modal('hide');
+          });
+        } 
+      });
+    });
+</script>
+<script>
+    document.querySelector('.addharga-form').addEventListener('submit', function(e) {
+      var form = this;
+      e.preventDefault();
+      swal({
+        title: "Sudah Yakin?",
+        text: "Pastikan data yang kamu input sudah benar, ya!",
+        icon: "warning",
+        buttons: [
+          'Aku mau cek ulang.',
+          'Iya, aku yakin!'
+        ],
+        // dangerMode: true,
+      }).then(function(isConfirm) {
+        if (isConfirm) {
+            // form.submit();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: '/admin/dasboard/addhargaservis',
+                method: 'post',
+                data: $('.addharga-form').serialize(), // prefer use serialize method
+                success:function(data){
+                    console.log(data);  
+                    // location.href = "/admin/servis-masuk";
+                    var id = $('#id_tx').val();
+                    // console.log(data->id_tx);
+                    // $('.id-'.id).remove();
+                }
+            });
+            swal({
+                title: 'Kurir Ditambahkan',
+                text: 'Sukses Disimpan kakak >_<',
+                icon: 'success'
+            }).then(function() {
+                $('#myModal2').modal('hide');
           });
         } 
       });

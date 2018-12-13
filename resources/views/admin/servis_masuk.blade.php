@@ -36,7 +36,7 @@
                                                     <th>Nama User</th>
                                                     <th>Jenis Elektronik</th>
                                                     <th>Kerusakan</th>
-                                                    <th>Jemput</th>
+                                                    <th>Antar</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -51,9 +51,10 @@
                                                             <td> {{ $item->nama_user }} </td>
                                                             <td> {{ $item->nama_elektronik }} </td>
                                                             <td> {{ $item->kerusakan }} </td>
-                                                            <td>{{ $item->jemput }}</td>
+                                                            <td>{{ $item->antar }}</td>
                                                             <td> <span class="badge badge-complete">Masuk</span> </td>
-                                                            <td><button class="btn btn-primary btn-submit" data-toggle="modal" data-target="#myModal" value="{{ $item->id_order }}/{{ $item->id_user }}">Edit</button></td>
+                                                            <td><button class="btn btn-primary btn-submit" data-toggle="modal" data-target="#myModal" value="{{ $item->id_order }}/{{ $item->id_user }}">Edit</button>
+                                                            <button class="btn btn-danger btn-submit2" data-toggle="modal" data-target="#myModal2" value="{{ $item->id_order }}/{{ $item->id_user }}">Cancel</button></td>
                                                             {{-- <input type="hidden" value="{{ $item->id_order }}" name="id_order" id="id_order">  --}}
                                                             {{-- <input type="hidden" value="{{ $item->id_user }}" name="id_user" id="id_user">  --}}
                                                         </tr>
@@ -67,30 +68,6 @@
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-8 -->
 
-                        {{-- <div class="col-xl-4">
-                            <div class="row">
-                                <div class="col-lg-6 col-xl-12">
-                                    <div class="card br-0">
-                                        <div class="card-body">
-                                            <div class="chart-container ov-h">
-                                                <div id="flotPie1" class="float-chart"></div>
-                                            </div>
-                                        </div>
-                                    </div><!-- /.card -->
-                                </div>
-
-                                <div class="col-lg-6 col-xl-12">
-                                    <div class="card bg-flat-color-3  ">
-                                        <div class="card-body">
-                                            <h4 class="card-title m-0  white-color ">August 2018</h4>
-                                        </div>
-                                         <div class="card-body">
-                                             <div id="flotLine5" class="flot-line"></div>
-                                         </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-                        {{-- </div> <!-- /.col-md-4 --> --}}
                     </div>
                 </div>
                 <!-- /.orders -->
@@ -107,27 +84,51 @@
                         <h4 class="modal-title" id="myModalLabel">Data Servis <span class="nama_user">ds</span></h4>
                     </div>
                     <div class="modal-body">
-                        
                         <div class="row">
                             <div class="col-6">
                                 <label for="kurir">Pilih Teknisi</label>
                                 <select class="custom-select" name="teknisi" id="teknisi" >
                                     {{-- <option selected>Pilih Kurir</option> --}}
-                                    @foreach ($data_kurir as $item)
+                                    @foreach ($data_teknisi as $item)
                                         <option value="{{ $item->id_teknisi }}">{{ $item->nama_teknisi }}</option>
                                     @endforeach
                                 </select>
+                                
                             </div>
                             <div class="col-6">
                                 <button type="submit" name="submit" class="btn btn-primary" >Save</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
-                        <div id="mapBox1"></div>   
-                        <input type="hidden" name="id_tx" id="id_tx" value="" ><br>
-                        <input type="hidden" name="latitude" id="latclicked" value="" ><br>
-                        <input type="hidden" name="longtitude" id="longclicked" value=""><br>
-                                
+                        <input type="hidden" name="id_tx" id="id_tx" value="" ><br>                                
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                    @csrf
+                </form>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content kelengkapan-form" action="/admin/dasboard/addkelengkapan" method="POST">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Cancel Servis</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="textarea-input">Keterangan Cancel</label>
+                                <textarea name="keterangan_calcel" id="textarea-input" rows="9" placeholder="Keterangan" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 161px;"></textarea>
+                                <input type="hidden" name="id_tx2" id="id_tx2" value="" ><br>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" name="submit" class="btn btn-primary" >Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         
@@ -138,73 +139,26 @@
         </div>
         @endsection
 @section('jquery')
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZkuHiUXYr2MnjteerrkucCJ8wUCu5-zo&callback=initMap" type="text/javascript"></script>
     <script>
     $('.btn-submit').click(function(){
         var id = $(this).val();
         $.get('dasboard/'+id, function(data){
             var res = data.split("|");
-            $('#latclicked').val(res[0]);
-            $('#longclicked').val(res[1]);
             $('#id_tx').val(res[3]);
-            initMap();
+
+            console.log(res);
+        });
+    });
+    $('.btn-submit2').click(function(){
+        var id = $(this).val();
+        $.get('dasboard/'+id, function(data){
+            var res = data.split("|");
+            $('#id_tx2').val(res[3]);
+            console.log(data);
         });
     });
     
     </script>
-    <script>
-	var map;
-    var markers = [];
-
-    function initMap() {
-        var latitude = $('#latclicked').val();
-        var longtitude = $('#longclicked').val();
-        // var latitude = "-0.4771566981485046";
-        // var longtitude = "117.12204834056001";
-        var myLatLng = {lat:parseFloat(latitude), lng: parseFloat(longtitude)};
-        map = new google.maps.Map(document.getElementById('mapBox1'), {
-            zoom: 15,
-            center: myLatLng,
-			mapTypeId: 'roadmap'
-        });
-        // console.log(myLatLng);
-        addMarkerFirst();
-        setMapOnAll(map)
-    }
-    function addMarker(location) {
-        setMapOnAll(null);
-        var marker = new google.maps.Marker({
-            position: location,
-            map: map  
-        });
-        markers = [];
-        markers.push(marker);
-        
-    }
-    function addMarkerFirst() {
-        setMapOnAll(null);
-        var latitude = $('#latclicked').val();
-        var longtitude = $('#longclicked').val();
-        // var latitude = "-0.4771566981485046";
-        // var longtitude = "117.12204834056001";
-        if(latitude != '' ||  longtitude != ''){
-            var myLatLng = {lat:parseFloat(latitude), lng: parseFloat(longtitude)};
-            // console.log(myLatLng);
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map  
-            });
-            markers = [];
-            markers.push(marker);
-        }
-    }
-    // Sets the map on all markers in the array.
-    function setMapOnAll(map) {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
-        }
-    }
-</script>
 <script>
     document.querySelector('.teknisi-form').addEventListener('submit', function(e) {
       var form = this;
@@ -233,8 +187,8 @@
                 data: $('.teknisi-form').serialize(), // prefer use serialize method
                 success:function(data){
                     console.log(data);  
-                    location.href = "/admin/servis-masuk";
-                    var id = $('#id_tx').val();
+                    // location.href = "/admin/servis-masuk";
+                    // var id = $('#id_tx').val();
                     // console.log(data->id_tx);
                     // $('.id-'.id).remove();
                 }
@@ -245,6 +199,48 @@
                 icon: 'success'
             }).then(function() {
                 $('#myModal').modal('hide');
+          });
+        } 
+      });
+    });
+</script>
+<script>
+    document.querySelector('.kelengkapan-form').addEventListener('submit', function(e) {
+      var form = this;
+      e.preventDefault();
+      swal({
+        title: "Sudah Yakin?",
+        text: "Pastikan data yang kamu input sudah benar, ya!",
+        icon: "warning",
+        buttons: [
+          'Aku mau cek ulang.',
+          'Iya, aku yakin!'
+        ],
+        // dangerMode: true,
+      }).then(function(isConfirm) {
+        if (isConfirm) {
+            // form.submit();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: '/admin/dasboard/cancel-servis',
+                method: 'post',
+                data: $('.kelengkapan-form').serialize(), // prefer use serialize method
+                success:function(data){
+                    console.log(data);  
+                    // location.href = "/admin/dasboard";
+                }
+            });
+            swal({
+                title: 'Servis Dicancel',
+                text: 'Yhaa :((',
+                icon: 'success'
+            }).then(function() {
+                $('#myModal2').modal('hide');
           });
         } 
       });

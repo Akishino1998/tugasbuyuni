@@ -246,6 +246,23 @@
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class=" form-control-label">Taksiran Harga</label>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                                    <input class="form-control" name="taksiran1">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                                    <input class="form-control" name="taksiran2">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         
@@ -265,7 +282,6 @@
             $('#latclicked').val(res[0]);
             $('#longclicked').val(res[1]);
             $('#id_tx').val(res[3]);
-            $('#id_tx2').val(res[3]);
             initMap();
         });
     });
@@ -273,8 +289,8 @@
         var id = $(this).val();
         $.get('dasboard/'+id, function(data){
             var res = data.split("|");
-            $('#id_tx2').val(res[0]);
-            console.log(res[0]);
+            $('#id_tx2').val(res[3]);
+            console.log(res[3]);
         });
     });
     

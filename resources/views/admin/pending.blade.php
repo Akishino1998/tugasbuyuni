@@ -57,7 +57,7 @@
                                                                 @if ($item->jemput == 'Ya')
                                                                     <button class="btn btn-primary btn-submit" data-toggle="modal" data-target="#myModal" value="{{ $item->id_order }}/{{ $item->id_user }}">Edit</button>
                                                                 @else
-                                                                    <button class="btn btn-primary btn-submit" data-toggle="modal2" data-target="#myModal2" value="{{ $item->id_order }}/{{ $item->id_user }}">Edit</button>
+                                                                    <button class="btn btn-primary btn-submit2" data-toggle="modal" data-target="#myModal2" value="{{ $item->id_order }}/{{ $item->id_user }}">Edit</button>
                                                                 @endif
                                                             </td>
                                                             {{-- <input type="hidden" value="{{ $item->id_order }}" name="id_order" id="id_order">  --}}
@@ -142,6 +142,52 @@
                 </form>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content kelengkapan-form" action="/admin/dasboard/addkelengkapan" method="POST">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Data Servis</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="textarea-input">Kelengkapan</label>
+                                <textarea name="kelengkapan" id="textarea-input" rows="9" placeholder="Kelengkapan" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 161px;"></textarea>
+                                <input type="hidden" name="id_tx2" id="id_tx2" value="" ><br>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" name="submit" class="btn btn-primary" >Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class=" form-control-label">Taksiran Harga</label>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                                    <input class="form-control" name="taksiran1">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                                    <input class="form-control" name="taksiran2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                    @csrf
+                </form>
+            </div>
+        </div>
         @endsection
 @section('jquery')
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZkuHiUXYr2MnjteerrkucCJ8wUCu5-zo&callback=initMap" type="text/javascript"></script>
@@ -153,7 +199,16 @@
             $('#latclicked').val(res[0]);
             $('#longclicked').val(res[1]);
             $('#id_tx').val(res[3]);
+            // console.log(data);
             initMap();
+        });
+    });
+    $('.btn-submit2').click(function(){
+        var id = $(this).val();
+        $.get('dasboard/'+id, function(data){
+            var res = data.split("|");
+            $('#id_tx2').val(res[3]);
+            console.log(data);
         });
     });
     
@@ -251,6 +306,48 @@
                 icon: 'success'
             }).then(function() {
                 $('#myModal').modal('hide');
+          });
+        } 
+      });
+    });
+</script>
+<script>
+    document.querySelector('.kelengkapan-form').addEventListener('submit', function(e) {
+      var form = this;
+      e.preventDefault();
+      swal({
+        title: "Sudah Yakin?",
+        text: "Pastikan data yang kamu input sudah benar, ya!",
+        icon: "warning",
+        buttons: [
+          'Aku mau cek ulang.',
+          'Iya, aku yakin!'
+        ],
+        // dangerMode: true,
+      }).then(function(isConfirm) {
+        if (isConfirm) {
+            // form.submit();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: '/admin/dasboard/addkelengkapan',
+                method: 'post',
+                data: $('.kelengkapan-form').serialize(), // prefer use serialize method
+                success:function(data){
+                    console.log(data);  
+                    // location.href = "/admin/dasboard";
+                }
+            });
+            swal({
+                title: 'Kelengkapan Ditambahkan',
+                text: 'Sukses Disimpan kakak >_<',
+                icon: 'success'
+            }).then(function() {
+                $('#myModal2').modal('hide');
           });
         } 
       });
